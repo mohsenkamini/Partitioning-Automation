@@ -1,0 +1,3 @@
+# fdisk.sh
+
+Partitioning automation
