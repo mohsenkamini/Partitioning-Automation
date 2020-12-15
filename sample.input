@@ -1,2 +1,2 @@
-disk-address	Disk-lable-type	Primary/extended	size		fstype	mountpoint	    options		dumpbackup	fscheck	
-/dev/sda	    e1/ee			P/E	        		+300M/G		ext	    /mnt/mntpoint	defaults	0/1 		0/1/2
+disk-address	Disk-lable-type	Primary/extended	size		fstype	mountpoint	options		dumpbackup	fscheck	
+/dev/sdb	gpt		P/E			+300M/G		ext	/mnt/mntpoint	defaults	0		0
