@@ -1,2 +1,2 @@
 physical-address	Disk-label-type	Primary/extended	size		fstype	mountpoint	options		dumpbackup	fscheck	
-/dev/sdb	gpt		P/E			+300M/G		ext	/mnt/mntpoint	defaults	0		0
+/dev/sdb    	gpt		P/E			+300M/G		ext	/mnt/mntpoint	defaults	0		0
