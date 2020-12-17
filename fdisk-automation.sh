@@ -39,7 +39,7 @@ function find_nop {                                     # finds number of partit
 
 ((nop=$(grep -c "$PA" $input)+nop))
 
-# for the sake of simplification, i change this concept to be the numbers of the partitions of a currently
+# for the sake of simplification, I changed this concept to be the number of the partitions of a currently
 # being processed PA in the script + number of all the previous made partitions.
 # this makes it easier to handle the loop in the script.
 
