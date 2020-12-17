@@ -1,4 +1,4 @@
-physical-address	Disk-label-type	Primary/extended	size		fstype	mountpoint	options		dumpbackup	fscheck	
-/dev/sdb    		mbr		p/e/l			+300M/G		ext2	/mnt/mntpoint	defaults	0		0
-/dev/sda		gpt		-			+2M/G/T		ext4	/mnt/mnt2	defaults	0		1
-/swap			gpt		-			+23M		swap	swap		defaults	1		2
+physical-address	Disk-label-type	Primary/extended	size		fstype	mountpoint	options		dumpbackup	fscheck	partition-number
+/dev/sdb    		mbr		p/e/l			+300M/G		ext2	/mnt/mntpoint	defaults	0		0	3
+/dev/sda		gpt		-			+2M/G/T		ext4	/mnt/mnt2	defaults	0		1	1
+/swap			gpt		-			+23M		swap	swap		defaults	1		2	125
