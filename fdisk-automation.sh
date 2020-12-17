@@ -11,7 +11,7 @@ mkdir -p $tmp_dir 2> /dev/null
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function purify_inputfile {                             # recieves the input file & deletes the first line, whcih is unnecessary
-                                                        # final returned value is $input
+                                                        # returned values are $input and $nl
 echo 'please enter the input file name'
 read 'inputfile'
 
