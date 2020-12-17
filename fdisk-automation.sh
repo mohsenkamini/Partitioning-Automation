@@ -11,7 +11,7 @@ mkdir -p $tmp_dir 2> /dev/null
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function purify_inputfile {                             # recieves the input file & deletes the first line, whcih is unnecessary
-                                                        # returned values are $input and $nl
+                                                        # final returned value is $input
 echo 'please enter the input file name'
 read 'inputfile'
 
@@ -39,9 +39,35 @@ function find_nop {                                     # finds number of partit
 
 ((nop=$(grep -c "$PA" $input)+nop))
 
-# for the sake of simplification, I changed this concept to be the number of the partitions of a currently
+# for the sake of simplification, i change this concept to be the numbers of the partitions of a currently
 # being processed PA in the script + number of all the previous made partitions.
 # this makes it easier to handle the loop in the script.
+
+}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function init_partitioning_gpt {
+
+(echo g; echo n; echo ${array10[$i]}; echo ""; echo ${array4[$i]}; echo w) | fdisk $PA
+partprobe
+}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function continue_partitioning_gpt {
+
+(echo n; echo ${array10[$i]}; echo ""; echo ${array4[$i]}; echo w) | fdisk $PA
+partprobe
+
+}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function partitioning_mbr {
+
+(echo n; echo ${array3[$i]}; echo ${array10[$i]}; echo ""; echo ${array4[$i]}; echo w) | fdisk $PA
+partprobe
 
 }
 
@@ -50,16 +76,23 @@ function find_nop {                                     # finds number of partit
 function format_it {
 if [ ${array5[$i]} = swap ]
 then
-mkswap $PA${array10[$i]}                        # To make it easier we'll just swapon it right away,
-swapon $PA${array10[$i]}                        # right here
+        mkswap $PA${array10[$i]}                        # To make it easier we'll just swapon it right away,
+        swapon $PA${array10[$i]}                        # right here
 else
-mkfs -t ${array5[$i]} $PA
-uuid=$( blkid | grep "$PA${array10[$i]}" | awk '{print $2}' | sed -e 's/UUID="//' | sed -e 's/"//')
+        mkfs -t ${array5[$i]} $PA
+        uuid=$( blkid | grep "$PA${array10[$i]}" | awk '{print $2}' | sed -e 's/UUID="//' | sed -e 's/"//')
 fi
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+function mkdir_mnt {
+
+mkdir -p ${array6[$i]} 2> /dev/null
+
+}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function update_fstab {
 
 echo "UUID=$uuid        ${array6[$i]}   ${array5[$i]}   ${array7[$i]}   ${array8[$i]}   ${array9[$i]}" >> /etc/fstab
@@ -69,35 +102,14 @@ mount -a
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function init_partitioning_gpt {
-
-(echo g; echo n; echo ""; echo ""; echo ${array4[$i]}; echo w) | fdisk $PA
-partprobe
-}
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-function continue_partitioning_gpt {
-
-(echo n; echo ""; echo ""; echo ${array4[$i]}; echo w) | fdisk $PA
-partprobe
-
-}
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-function partitioning_mbr {
-
-(echo n; echo ${array3[$i]}; echo ""; echo ""; echo ${array4[$i]}; echo w) | fdisk $PA
-partprobe
-
-}
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
 # MAIN SECTION ############################################################################################
+
+purify_inputfile
+array_them
+
 
 # Basically the for loop is in charge of choosing disks and while loop works the partiotions on it.
 
@@ -114,22 +126,25 @@ do
         do
                 case ${array2[$i]} in
                         gpt)
-                        if [ $counter -eq 0]
-                        then
-                        init_partitioning_gpt
-                        format_it
-                        update_fstab
-                        ((counter++))
-                        else
-                        continue_partitioning_gpt
-                        format_it
-                        update_fstab
-                        fi
+                                if [ $counter -eq 0]
+                                then
+                                        init_partitioning_gpt
+                                        format_it
+                                        mkdir_mnt
+                                        update_fstab
+                                        ((counter++))
+                                else
+                                        continue_partitioning_gpt
+                                        format_it
+                                        mkdir_mnt
+                                        update_fstab
+                                fi
                         ;;
                         mbr)
-                        partitioning_mbr
-                        format_it
-                        update_fstab
+                                partitioning_mbr
+                                format_it
+                                mkdir_mnt
+                                update_fstab
                         ;;
                 esac
                 ((i++))
