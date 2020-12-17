@@ -28,7 +28,7 @@ local i=1
 for ((i=1; i<11; i++))
 do
         awk "{print \$$i}" $input > $tmp_dir/column$i
-        readarray array$i < $tmp_addr/column$i
+        readarray array$i < $tmp_dir/column$i
 done
 }
 
