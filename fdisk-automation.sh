@@ -80,7 +80,7 @@ then
         mkswap $PA${array10[$i]}                        # To make it easier we'll just swapon it right away,
         swapon $PA${array10[$i]}                        # right here
 else
-        mkfs -t ${array5[$i]} $PA
+        mkfs -t ${array5[$i]} $PA${array10[$i]}
         uuid=$( blkid | grep "$PA${array10[$i]}" | awk '{print $2}' | sed -e 's/UUID="//' | sed -e 's/"//')
 fi
 }
@@ -137,9 +137,10 @@ do
 echo $i $nop
         while [ $i -lt $nop ]
         do
-                                       echo ${array2[$i]}
-                case ${array2[$i]} in
-gpt)
+
+                tmp=$( echo ${array2[$i]} | sed -e 's/^[ \t]*//' | sed -e 's/[ \t]*$//')
+                case $tmp in
+                        gpt)
                                 if [ $counter -eq 0]
                                 then
                                        echo "check_init"
@@ -155,15 +156,18 @@ gpt)
                                         mkdir_mnt
                                         update_fstab
                                 fi
-;;
-mbr)
+                        ;;
+                        mbr)
                                 echo "check_mbr"
                                 partitioning_mbr
                                 format_it
                                 mkdir_mnt
                                 update_fstab
-;;
-esac
+                        ;;
+                        *)
+                                echo "none"
+                        ;;
+                        esac
                 ((i++))
         done
 done
