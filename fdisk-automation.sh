@@ -93,6 +93,7 @@ mkdir -p ${array6[$i]} 2> /dev/null
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 function update_fstab {
 
 echo "UUID=$uuid        ${array6[$i]}   ${array5[$i]}   ${array7[$i]}   ${array8[$i]}   ${array9[$i]}" >> /etc/fstab
