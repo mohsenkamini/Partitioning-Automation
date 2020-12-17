@@ -27,7 +27,8 @@ function array_them {                                   # spliting input file in
 local i=1
 for ((i=1; i<11; i++))
 do
-        awk "{print \$$i}" $input > $tmp_dir/column$i
+        awk "{print \$$i}" $input | sed -e 's/^[ \t]*//' | sed '/^$/d' |  sed -e 's/[ \t]*$//' > $tmp_dir/column$i
+        # sed statements will delete all the whitespaces (leading/trailing/empty lines)
         readarray array$i < $tmp_dir/column$i
 done
 }
@@ -36,8 +37,8 @@ done
 
 function find_nop {                                     # finds number of partitions defined in input based on physical addr.
 
-
-((nop=$(grep -c "$PA" $input)+nop))
+nup=$(grep -c "$PA" $input)
+((nop=nop+nup))
 
 # for the sake of simplification, i change this concept to be the numbers of the partitions of a currently
 # being processed PA in the script + number of all the previous made partitions.
@@ -128,37 +129,41 @@ array_them
 nop=0
 for ((i=0; $nop < $nl; ))               # $i will always be the working row (=being processed partition)
 do
-        PA=${array1[$nop]}
+        PA=$(echo ${array1[$nop]} )
         find_nop                        # we find the value of nop here because we want $i to go on untill
                                         # we get to the next PA -untill we are finished with the current PA
         counter=0                       # this is used for gpt. because when we use "g" in fdisk it'll delete
                                         # the already existing partitions and is only used when initializing.
-
+echo $i $nop
         while [ $i -lt $nop ]
         do
+                                       echo ${array2[$i]}
                 case ${array2[$i]} in
-                        gpt)
+gpt)
                                 if [ $counter -eq 0]
                                 then
+                                       echo "check_init"
                                         init_partitioning_gpt
                                         format_it
                                         mkdir_mnt
                                         update_fstab
                                         ((counter++))
                                 else
+                                       echo "check_gpt"
                                         continue_partitioning_gpt
                                         format_it
                                         mkdir_mnt
                                         update_fstab
                                 fi
-                        ;;
-                        mbr)
+;;
+mbr)
+                                echo "check_mbr"
                                 partitioning_mbr
                                 format_it
                                 mkdir_mnt
                                 update_fstab
-                        ;;
-                esac
+;;
+esac
                 ((i++))
         done
 done
