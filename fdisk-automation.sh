@@ -5,7 +5,8 @@
 apt-get install parted -y || yum install parted -y
 tmp_dir=/tmp/fdisk.sh                                   # note that it does not end in a /
 mkdir -p $tmp_dir 2> /dev/null
-# FUNCTIONS SECTION
+
+# FUNCTIONS SECTION #######################################################################################
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -24,7 +25,7 @@ input=$tmp_dir/inputfile
 
 function array_them {                                   # spliting input file into an array
 local i=1
-for ((i=1; i<10; i++))
+for ((i=1; i<11; i++))
 do
         awk "{print \$$i}" $input > $tmp_dir/column$i
         readarray array$i < $tmp_addr/column$i
@@ -47,10 +48,14 @@ function find_nop {                                     # finds number of partit
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function format_it {
-
+if [ ${array5[$i]} = swap ]
+then
+mkswap $PA${array10[$i]}                        # To make it easier we'll just swapon it right away,
+swapon $PA${array10[$i]}                        # right here
+else
 mkfs -t ${array5[$i]} $PA
-uuid=$(tune2fs -l /dev/sdb1 | grep UUID | awk '{print $3}')
-
+uuid=$( blkid | grep "$PA${array10[$i]}" | awk '{print $2}' | sed -e 's/UUID="//' | sed -e 's/"//')
+fi
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -94,7 +99,7 @@ partprobe
 
 # MAIN SECTION ############################################################################################
 
-# so basically the for loop is in charge of choosing disks and while loop works the partiotions on it.
+# Basically the for loop is in charge of choosing disks and while loop works the partiotions on it.
 
 nop=0
 for ((i=0; $nop < $nl; ))               # $i will always be the working row (=being processed partition)
