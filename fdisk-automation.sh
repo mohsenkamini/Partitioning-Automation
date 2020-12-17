@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# BASIC DIRECTORIES AND VARIABLES AND PACKAGES
+# BASIC DIRECTORIES, VARIABLES AND PACKAGES
 
 apt-get install parted -y || yum install parted -y
 tmp_dir=/tmp/fdisk.sh                                   # note that it does not end in a /
