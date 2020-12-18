@@ -3,9 +3,10 @@ This document helps you with using the script within this repository, which aims
 
 _Asteroid-belt, dec,2020 | written by Mohsen K. Amini_
 # How it works
+# Preparing the input file
 The script works with an **input file** which contains all the information about the partitions that are to be made.
 
-So the only thing that you are aquired to do here, is to fill out a file with these information. As expected there are some rules to that. Let's what's it all about !
+So the only thing that you are required to do here, is to fill out a file with these information. As expected there are some rules to that. Let's what's it all about !
 here's a sample input file:
 ~~~
 /physical-address       label-type      Primary/extended        size    fstype  mountpoint      options dumpbackup      fscheck partition-number
@@ -19,22 +20,26 @@ here's a sample input file:
 ~~~
 The important things that you must be careful about them in order for the script to work properly are :
 
+- You need to make sure that `mkfs` tool, recognizes the filesystem type you're trying to format your partitions.
+
 - You need to fill the fields in a format that everything fits in sharp columns. Just like the sample above, as you can see, all the information fit perfectly under defined fields._we recommend you edit this sample to your own fits in notepad or vim_
 
 - As shown in the sample you can't define fstype, mount point, etc, when you're defining an `extended` partition in `mbr` method. -_because simply we don't format them !_
 
 - While you are defining `logical` partitions in `mbr` method, you **have to** stay in the scale of 5-6-7...-15 (in order) **we recommend always stay in order for this matter**
 
-- 
+- The fields, parameteres and formats in columns : `label-type` `Primary/extended` `size` could only match with the formats above.
 
+- **DO NOT** leave any parameter empty. like shown above just leave a `-`.
 
-
-
-
-
+# Running the script
+once you're all set up with the input file, you could go ahead and run ` fdisk-automation.sh`. At first the script makes sure that you have the `parted` package installed. After that, it asks for the address where the input file is stored on your machine. Put in the address and hit enter to continue.
+~~~
 ==================================================================================================
 
 Please enter the input file name :
+~~~
+It'll then automatically make the partitions, format and mount them to the addresses define in the input file.
 
 
 
