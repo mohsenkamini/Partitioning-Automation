@@ -137,13 +137,11 @@ echo "##########################################################################
 
 purify_inputfile
 array_them
-
-
-# Basically the for loop is in charge of choosing disks and while loop works the partiotions on it.
-
 nop=0
 for ((i=0; $nop < $nl; ))               # $i will always be the working row (=being processed partition)
 do
+                                        # Basically the for loop is in charge of choosing disks.
+                                        #  and while loop works the partiotions on it
         PA=$(echo ${array1[$nop]})
         find_nop                        # we find the value of nop here because we want $i to go on untill
                                         # we get to the next PA -untill we are finished with the current PA
