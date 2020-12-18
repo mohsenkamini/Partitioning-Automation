@@ -2,7 +2,7 @@
 
 # BASIC DIRECTORIES, VARIABLES AND PACKAGES
 
-apt-get install parted -y || yum install parted -y
+apt-get install parted -y || yum install parted -y 2> /dev/null
 tmp_dir=/tmp/fdisk.sh                                   # note that it does not end in a /
 mkdir -p $tmp_dir 2> /dev/null
 
@@ -12,7 +12,9 @@ mkdir -p $tmp_dir 2> /dev/null
 
 function purify_inputfile {                             # recieves the input file & deletes the first line, whcih is unnecessary
                                                         # final returned value is $input
-echo 'please enter the input file name'
+echo '==================================================================================================
+'
+echo -n 'Please enter the input file name :   '
 read 'inputfile'
 
 nl=$(wc -l < $inputfile )
@@ -51,6 +53,7 @@ nup=$(grep -c "$PA" $input)
 function init_partitioning_gpt {
 
 (echo g; echo n; echo ${array10[$i]}; echo ""; echo ${array4[$i]}; echo w) | fdisk $PA
+wait
 partprobe
 }
 
@@ -59,6 +62,7 @@ partprobe
 function continue_partitioning_gpt {
 
 (echo n; echo ${array10[$i]}; echo ""; echo ${array4[$i]}; echo w) | fdisk $PA
+wait
 partprobe
 
 }
@@ -68,6 +72,7 @@ partprobe
 function partitioning_mbr {
 
 (echo n; echo ${array3[$i]}; echo ${array10[$i]}; echo ""; echo ${array4[$i]}; echo w) | fdisk $PA
+wait
 partprobe
 
 }
@@ -81,7 +86,6 @@ then
         swapon $PA${array10[$i]}                        # right here
 else
         mkfs -t ${array5[$i]} $PA${array10[$i]}
-        uuid=$( blkid | grep "$PA${array10[$i]}" | awk '{print $2}' | sed -e 's/UUID="//' | sed -e 's/"//')
 fi
 }
 
@@ -96,9 +100,12 @@ mkdir -p ${array6[$i]} 2> /dev/null
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function update_fstab {
 
-echo "UUID=$uuid ${array6[$i]} ${array5[$i]} ${array7[$i]} ${array8[$i]} ${array9[$i]}" >> /etc/fstab
-mount -a
-
+if [ ${array3[$i]} != e ]
+then
+        uuid=$( blkid | grep -w "$PA${array10[$i]}" | awk '{print $2}' | sed -e 's/UUID="//' | sed -e 's/"//')
+        echo "UUID=$uuid ${array6[$i]} ${array5[$i]} ${array7[$i]} ${array8[$i]} ${array9[$i]}" >> /etc/fstab
+        mount -a
+fi
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -107,6 +114,9 @@ function report {
 
 echo "########################################## FINAL REPORT ##########################################
 "
+echo "=========================================== MADE PARTITIONS ======================================
+"
+lsblk
 echo "========================================== MOUNTED PARTITIONS ====================================
 "
 df -h
@@ -145,14 +155,12 @@ echo $i $nop
                                 echo $counter
                                 if [ $counter = 0 ]
                                 then
-                                       echo "check_init"
                                         init_partitioning_gpt
                                         format_it
                                         mkdir_mnt
                                         update_fstab
                                         ((counter++))
                                 else
-                                       echo "check_gpt"
                                         continue_partitioning_gpt
                                         format_it
                                         mkdir_mnt
@@ -160,7 +168,6 @@ echo $i $nop
                                 fi
                         ;;
                         mbr)
-                                echo "check_mbr"
                                 partitioning_mbr
                                 format_it
                                 mkdir_mnt
