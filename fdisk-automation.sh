@@ -29,7 +29,7 @@ for ((i=1; i<11; i++))
 do
         awk "{print \$$i}" $input | sed -e 's/^[ \t]*//' | sed '/^$/d' |  sed -e 's/[ \t]*$//' > $tmp_dir/column$i
         # sed statements will delete all the whitespaces (leading/trailing/empty lines)
-        readarray array$i < $tmp_dir/column$i
+        readarray -t array$i < $tmp_dir/column$i
 done
 }
 
@@ -96,7 +96,7 @@ mkdir -p ${array6[$i]} 2> /dev/null
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function update_fstab {
 
-echo "UUID=$uuid        ${array6[$i]}   ${array5[$i]}   ${array7[$i]}   ${array8[$i]}   ${array9[$i]}" >> /etc/fstab
+echo "UUID=$uuid ${array6[$i]} ${array5[$i]} ${array7[$i]} ${array8[$i]} ${array9[$i]}" >> /etc/fstab
 mount -a
 
 }
@@ -114,6 +114,8 @@ echo "=========================================== SWAP PARTITIONS ==============
 "
 cat /proc/swaps
 
+echo "##################################################################################################
+"
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -129,19 +131,19 @@ array_them
 nop=0
 for ((i=0; $nop < $nl; ))               # $i will always be the working row (=being processed partition)
 do
-        PA=$(echo ${array1[$nop]} )
+        PA=$(echo ${array1[$nop]})
         find_nop                        # we find the value of nop here because we want $i to go on untill
                                         # we get to the next PA -untill we are finished with the current PA
-        counter=0                       # this is used for gpt. because when we use "g" in fdisk it'll delete
+        counter=0
+                                        # this is used for gpt. because when we use "g" in fdisk it'll delete
                                         # the already existing partitions and is only used when initializing.
 echo $i $nop
         while [ $i -lt $nop ]
         do
-
-                tmp=$( echo ${array2[$i]} | sed -e 's/^[ \t]*//' | sed -e 's/[ \t]*$//')
-                case $tmp in
+                case ${array2[$i]} in
                         gpt)
-                                if [ $counter -eq 0]
+                                echo $counter
+                                if [ $counter = 0 ]
                                 then
                                        echo "check_init"
                                         init_partitioning_gpt
