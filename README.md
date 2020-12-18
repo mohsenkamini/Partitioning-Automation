@@ -20,7 +20,9 @@ here's a sample input file:
 ~~~
 The important things that you must be careful about them in order for the script to work properly are :
 
-- You need to make sure that `mkfs` tool, recognizes the filesystem type you're trying to format your partitions.
+- You need to make sure that `mkfs` tool, recognizes the **filesystem type** you're trying to format your partitions.
+
+- You cannot make **swap partitions** that are based on a **file** rather than a disk partitions with this document.
 
 - You need to fill the fields in a format that everything fits in sharp columns. Just like the sample above, as you can see, all the information fit perfectly under defined fields._we recommend you edit this sample to your own fits in notepad or vim_
 
@@ -41,9 +43,9 @@ Please enter the input file name :
 ~~~
 It'll then automatically make the partitions, format and mount them to the addresses define in the input file.
 
-
-
-
+# Monitor the report
+At the end, you'll be provided with a little bit of report of made partitions, mounted ones and swap partitions that you wanted.
+You might also want to check out `/etc/fstab` and `blkid` for more.
 
 
 
