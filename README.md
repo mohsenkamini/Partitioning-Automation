@@ -6,7 +6,7 @@ _Asteroid-belt, dec,2020 | written by Mohsen K. Amini_
 # Preparing the input file
 The script works with an **input file** which contains all the information about the partitions that are to be made.
 
-So the only thing that you are required to do here, is to fill out a file with these information. As expected there are some rules to that. Let's what's it all about !
+So the only thing that you are required to do here, is to fill out a file with these information. As expected there are some rules to that. Let's see what's it all about !
 here's a sample input file:
 ~~~
 /physical-address       label-type      Primary/extended        size    fstype  mountpoint      options dumpbackup      fscheck partition-number
