@@ -2,7 +2,7 @@
 
 # BASIC DIRECTORIES, VARIABLES AND PACKAGES
 
-apt-get install parted -y || yum install parted -y 2> /dev/null
+apt-get install parted -y || yum install parted || dnf install parted -y 2> /dev/null
 tmp_dir=/tmp/fdisk.sh                                   # note that it does not end in a /
 mkdir -p $tmp_dir 2> /dev/null
 
