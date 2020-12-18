@@ -4,7 +4,7 @@ This document helps you with using the script within this repository, which aims
 _Asteroid-belt, dec,2020 | written by Mohsen K. Amini_
 # How it works
 # Preparing the input file
-The script works with an **input file** which contains all the information about the partitions that are to be made.
+`fdisk-automation.sh` works with an **input file** which contains all the information about the partitions that are to be made.
 
 So the only thing that you are required to do here, is to fill out a file with these information. As expected there are some rules to that. Let's see what's it all about !
 here's a sample input file:
@@ -22,7 +22,7 @@ The important things that you must be careful about, in order for the script to 
 
 - You need to make sure that `mkfs` tool, recognizes the **filesystem type** you're trying to format your partitions.
 
-- You cannot create **swap partitions** that are based on a **file** rather than a disk partitions with this document. [more on that](https://docs.alfresco.com/3.4/tasks/swap-space-lin.html)
+- You cannot create **swap partitions** that are based on a **file** rather than a disk partitions with this script. [more on that](https://docs.alfresco.com/3.4/tasks/swap-space-lin.html)
 
 - You need to fill the fields in a format that everything fits in sharp columns. Just like the sample above, as you can see, all the information fit perfectly under defined fields._we recommend you edit this sample to your own fits in notepad or vim_
 
