@@ -18,7 +18,7 @@ here's a sample input file:
 /dev/sdd                gpt             -                       +23M    swap    swap            defaults        1       2       125
 /dev/sdd                gpt             -                       +2G     ext4    /mnt/mnt7       defaults        1       2       1
 ~~~
-The important things that you must be careful about, in order for the script to work properly are :
+The important things that you must be careful about, in order for the script to function properly are :
 
 - You need to make sure that `mkfs` tool, recognizes the **filesystem type** you're trying to format your partitions.
 
