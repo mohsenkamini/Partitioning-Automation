@@ -34,6 +34,9 @@ do
         readarray -t array$i < $tmp_dir/column$i
 done
 }
+# here's what each array represents :
+# array1 : PA           array2 : disk label type        array3 : P/E/L          array4 : size         array5 : fstype
+# array6 : mountpoint   array7 : options in fstab       array8 : dump backup    array9 : fscheck      array10: part.no. 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
