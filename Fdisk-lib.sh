@@ -79,6 +79,7 @@ function format_it {
 if [ ${array5[$i]} = swap ]
 then
         mkswap $PA${array10[$i]}                        # To make it easier we'll just swapon it right away,
+        wait
         swapon $PA${array10[$i]}                        # right here
 else
         mkfs -t ${array5[$i]} $PA${array10[$i]}
