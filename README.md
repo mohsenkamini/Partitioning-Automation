@@ -20,6 +20,8 @@ here's a sample input file:
 ~~~
 The important things that you must be careful about, in order for the script to function properly are :
 
+- The `physical addresses` need to be back to back. It means that, when you start partitioning on e.g `/dev/sdb` you need to finish all the partitions on `/dev/sdb` before you go to the next physical disk.
+
 - You need to make sure that `mkfs` tool, recognizes the **filesystem type** you're trying to format your partitions.
 
 - You cannot create **swap partitions** that are based on a **file** rather than a disk partitions with this script. [more on that](https://docs.alfresco.com/3.4/tasks/swap-space-lin.html)
