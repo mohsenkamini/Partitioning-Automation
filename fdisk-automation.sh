@@ -21,7 +21,6 @@ do
         counter=0
                                         # this is used for gpt. because when we use "g" in fdisk it'll delete
                                         # the already existing partitions and is only used when initializing.
-echo $i $nop
         while [ $i -lt $nop ]
         do
                 case ${array2[$i]} in
