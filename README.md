@@ -20,7 +20,7 @@ here's a sample input file:
 ~~~
 The important things that you must be careful about, in order for the script to function properly are :
 
-- This script isn't meant to edit partitions on a disk, (although you can do this on `mbr` disks). This script should only be used to initiate partitioning on a disk.
+- This script isn't meant to **edit partitions** on a disk, (although you can do this on `mbr` disks). This script should only be used to initiate partitioning on a disk.
 
 - The `physical addresses` need to be back to back. It means that, when you start partitioning on e.g `/dev/sdb` you need to finish all the partitions on `/dev/sdb` before you go to the next physical disk.
 
