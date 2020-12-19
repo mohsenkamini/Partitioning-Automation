@@ -26,7 +26,6 @@ echo $i $nop
         do
                 case ${array2[$i]} in
                         gpt)
-                                echo $counter
                                 if [ $counter = 0 ]
                                 then
                                         init_partitioning_gpt
