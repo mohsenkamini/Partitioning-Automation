@@ -32,7 +32,7 @@ The important things that you must be careful about, in order for the script to 
 
 - As shown in the sample you can't define fstype, mount point, etc, when you're defining an `extended` partition in `mbr` method. -_because simply we don't format them !_
 
-- While you are defining `logical` partitions in `mbr` method, you **have to** stay in the scale of 5-6-7...-15 (in order) **we recommend always stay in order for this matter**
+- While you are defining `logical` partitions in `mbr` method, you **have to** stay in the scale of 5-6-7...-15 (in order) **we recommend always stay in order for this matter**.
 
 - The fields, parameteres and formats in columns : `label-type` `Primary/extended` `size` could only match with the formats above.
 
