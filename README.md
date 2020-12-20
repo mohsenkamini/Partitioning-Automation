@@ -28,7 +28,7 @@ The important things that you must be careful about, in order for the script to 
 
 - You cannot create **swap partitions** that are based on a **file** rather than a disk partition with this script. [more on that](https://docs.alfresco.com/3.4/tasks/swap-space-lin.html)
 
-- You need to fill the fields in a format that everything fits in sharp columns. Just like the sample above, as you can see, all the information fit perfectly under defined fields._we recommend you edit this sample to your own fits in notepad or vim_
+- You need to fill the fields in a format that everything fits in sharp columns. Just like the sample above, as you can see, all the information fit perfectly under defined fields._we recommend you edit this sample to your own fits in notepad or_ `vim`
 
 - As shown in the sample you can't define fstype, mount point, etc, when you're defining an `extended` partition in `mbr` method. -_because simply we don't format them !_
 
