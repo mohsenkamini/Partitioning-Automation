@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # BASIC DIRECTORIES, VARIABLES AND PACKAGES
+
 source .env
 source Fdisk-lib.sh
-apt-get install parted -y 2> /dev/null || yum install parted -y 2> /dev/null || dnf install parted -y 2> /dev/null
 mkdir -p $tmp_dir 2> /dev/null
 
 # MAIN SECTION ############################################################################################
