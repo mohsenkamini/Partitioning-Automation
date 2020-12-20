@@ -4,6 +4,7 @@
 
 source .env
 source Fdisk-lib.sh
+install_parted
 mkdir -p $tmp_dir 2> /dev/null
 
 # MAIN SECTION ############################################################################################
