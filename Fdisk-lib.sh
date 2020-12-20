@@ -3,6 +3,12 @@
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+function install_parted {
+        apt-get install parted -y 2> /dev/null || yum install parted -y 2> /dev/null || dnf install parted -y 2> /dev/null
+}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 function purify_inputfile {                             # recieves the input file & deletes the first line, whcih is unnecessary
                                                         # final returned value is $input
 echo '==================================================================================================
