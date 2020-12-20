@@ -26,7 +26,7 @@ The important things that you must be careful about, in order for the script to 
 
 - You need to make sure that `mkfs` tool, recognizes the **filesystem type** you're trying to format your partitions.
 
-- You cannot create **swap partitions** that are based on a **file** rather than a disk partitions with this script. [more on that](https://docs.alfresco.com/3.4/tasks/swap-space-lin.html)
+- You cannot create **swap partitions** that are based on a **file** rather than a disk partition with this script. [more on that](https://docs.alfresco.com/3.4/tasks/swap-space-lin.html)
 
 - You need to fill the fields in a format that everything fits in sharp columns. Just like the sample above, as you can see, all the information fit perfectly under defined fields._we recommend you edit this sample to your own fits in notepad or vim_
 
