@@ -38,7 +38,7 @@ The important things that you must be careful about, in order for the script to 
 
 - **DO NOT** leave any parameter empty. like shown above just leave a `-`.
 
-- You don't need create the mount point directories you define in the input file. the script will do that automatically for you.
+- You don't need to create the mount point directories you define in the input file. the script will do that automatically for you.
 
 # Running the script
 once you're all set up with the input file, you could go ahead and run ` fdisk-automation.sh`. At first the script makes sure that you have the `parted` package installed. After that, it asks for the address where the input file is stored on your machine. Put in the address and hit enter to continue.
