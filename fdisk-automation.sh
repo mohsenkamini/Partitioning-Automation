@@ -2,13 +2,13 @@
 
 # BASIC DIRECTORIES, VARIABLES AND PACKAGES
 source .env
-echo $salam
-apt-get install parted -y || yum install parted -y || dnf install parted -y 2> /dev/null
+source Fdisk-lib.sh
+apt-get install parted -y 2> /dev/null || yum install parted -y 2> /dev/null || dnf install parted -y 2> /dev/null
 tmp_dir=/tmp/fdisk.sh                                   # note that it does not end in a /
 mkdir -p $tmp_dir 2> /dev/null
 
 # MAIN SECTION ############################################################################################
-source Fdisk-lib.sh
+
 purify_inputfile
 array_them
 nop=0
