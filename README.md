@@ -47,7 +47,7 @@ once you're all set up with the input file, you could go ahead and run ` fdisk-a
 
 Please enter the input file name :
 ~~~
-It'll then automatically make the partitions, format and mount them to the addresses define in the input file.
+It'll then automatically make the partitions, format and mount them to the addresses defined in the input file.
 
 # Monitor the report
 At the end, you'll be provided with a little bit of report of made partitions, mounted ones and swap partitions that you wanted.
