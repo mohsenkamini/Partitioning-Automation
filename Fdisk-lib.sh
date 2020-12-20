@@ -39,7 +39,7 @@ done
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function find_nop {                                     # finds number of partitions defined in input based on physical addr.
+function find_nop {                                     # finds number of partitions (nop) defined in input based on physical addr.
 
 nup=$(grep -c "$PA" $input)
 ((nop=nop+nup))
