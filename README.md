@@ -1,7 +1,8 @@
 # Introduction
 This document helps you with using the script within this repository, which aims to completely automate the process of partitioning.
 
-_Asteroid-belt, dec,2020 | written by Mohsen K. Amini_
+_Written by Mohsen K. Amini, Asterpoid-belt | dec,2020_
+
 # How it works
 # Preparing the input file
 `fdisk-automation.sh` works with an **input file** which contains all the information about the partitions that are to be made.
