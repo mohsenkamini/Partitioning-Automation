@@ -37,7 +37,7 @@ The important things that you must be careful about, in order for the script to 
 
 - While you are defining `logical` partitions in `mbr` method, you **have to** stay in the scale of 5-6-7...-15 (in order) **we recommend always stay in order for this matter**.
 
-- The fields, parameteres and formats in columns : `label-type` `Primary/extended` `size` could only match with the formats above.
+- The fields, parameteres and formats in columns : `label-type` `Primary/extended` `size` could only match with the formats shown in the example.
 
 - **DO NOT** leave any parameter empty. like shown above just leave a `-`.
 
