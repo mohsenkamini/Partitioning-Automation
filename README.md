@@ -1,7 +1,7 @@
 # Introduction
 This document helps you with using the script within this repository, which aims to completely automate the process of partitioning.
 
-_Written by Mohsen K. Amini, Asterpoid-belt | dec,2020_
+_Written by Mohsen K. Amini, Asteroid-belt | dec,2020_
 
 # How it works
 # Preparing the input file
