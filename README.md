@@ -10,7 +10,7 @@ _Written by Mohsen K. Amini, Asteroid-belt | dec,2020_
 So the only thing that you are required to do here, is to fill out a file with these information. As expected there are some rules to that. Let's see what's it all about !
 here's a sample input file:
 ~~~
-/physical-address       label-type      Primary/extended        size    fstype  mountpoint      options dumpbackup      fscheck partition-number
+physical-address       label-type      Primary/extended        size    fstype  mountpoint      options dumpbackup      fscheck partition-number
 /dev/sdb                mbr             p                       +300M   ext2    /mnt/mntpoint1  defaults        0       0       1
 /dev/sdb                mbr             e                       +303M   -       -               -               -       -       2
 /dev/sdb                mbr             l                       +30M    ext4    /mnt/mntpoint5  defaults        0       0       5
