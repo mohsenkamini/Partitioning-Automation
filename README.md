@@ -118,4 +118,5 @@ Filename                                Type            Size    Used    Priority
 
 ~~~
 
-
+# Contributions
+Any PR(s) are welcomed.
