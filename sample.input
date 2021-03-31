@@ -1,4 +1,4 @@
-/physical-address       label-type      Primary/extended        size    fstype  mountpoint      options dumpbackup      fscheck partition-number
+physical-address       label-type      Primary/extended        size    fstype  mountpoint      options dumpbackup      fscheck partition-number
 /dev/sdb                mbr             p                       +300M   ext2    /mnt/mntpoint1  defaults        0       0       1
 /dev/sdb                mbr             e                       +303M   -       -               -               -       -       2
 /dev/sdb                mbr             l                       +30M    ext4    /mnt/mntpoint5  defaults        0       0       5
